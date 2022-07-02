@@ -1,5 +1,6 @@
 package com.example.moviecaseapp.presentation.ui.search
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -48,9 +49,11 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>(), SearchView.OnQu
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun initAdapter() {
         searchViewModel.movieList.observe(viewLifecycleOwner) {
             lifecycleScope.launch {
+                adapter.notifyDataSetChanged()
                 adapter.submitData(it)
             }
         }
